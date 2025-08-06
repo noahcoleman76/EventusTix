@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import BackButton from '../components/BackLink';
+import VenueTitle from '../components/VenueTitle';
 
 const EventDetailPage = () => {
     const { venueId, eventId } = useParams();
@@ -29,37 +32,35 @@ const EventDetailPage = () => {
     }
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Navbar />
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={{ padding: "20px" }} className='main-content'>
+                <Navbar />
+                <BackButton />
+                <VenueTitle name={venue.name} />
 
-            {/* Venue Header */}
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                <img src={venue.logo} alt={`${venue.name} logo`} style={{ height: "50px", marginRight: "10px" }} />
-                <h1>{venue.name}</h1>
-                <a href={venue.website} style={{ marginLeft: 'auto' }}>Back to Venue Site</a>
+                {/* Event Details */}
+                <h2>{event.name}</h2>
+                <img src={event.image} alt={event.name} style={{ width: "100%", maxWidth: "500px", marginBottom: "15px" }} />
+                <p>{event.description}</p>
+                <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
+
+                {/* Buy Tickets */}
+                <button
+                    style={{
+                        padding: "10px 20px",
+                        fontSize: "16px",
+                        background: "#28a745",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer"
+                    }}
+                    onClick={() => navigate(`/venue/${venueId}/checkout/${event.id}`)}
+                >
+                    Buy Tickets
+                </button>
             </div>
-
-            {/* Event Details */}
-            <h2>{event.name}</h2>
-            <img src={event.image} alt={event.name} style={{ width: "100%", maxWidth: "500px", marginBottom: "15px" }} />
-            <p>{event.description}</p>
-            <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
-
-            {/* Buy Tickets */}
-            <button
-                style={{
-                    padding: "10px 20px",
-                    fontSize: "16px",
-                    background: "#28a745",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer"
-                }}
-                onClick={() => navigate(`/venue/${venueId}/checkout/${event.id}`)}
-            >
-                Buy Tickets
-            </button>
+            <Footer />
         </div>
     );
 };

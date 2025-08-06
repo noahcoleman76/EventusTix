@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
-
+import Footer from '../components/Footer';
+import VenueTitle from '../components/VenueTitle';
 
 const EventsPage = () => {
   const { venueId } = useParams();
@@ -24,36 +25,33 @@ const EventsPage = () => {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <Navbar />
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      <div style={{ padding: "20px" }} className='main-content'>
+        <Navbar />
+        <VenueTitle name={venue.name} />
 
-      {/* Venue Header */}
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-        <img src={venue.logo} alt={`${venue.name} logo`} style={{ height: "50px", marginRight: "10px" }} />
-        <h1>{venue.name}</h1>
-        <a href={venue.website} style={{ marginLeft: 'auto' }}>Back to Venue Site</a>
-      </div>
-
-      {/* Events */}
-      {events.map(event => (
-        <Link to={`/venue/${venueId.toLowerCase()}/event/${event.id}`}>
-          <div style={{
-            display: 'flex',
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            marginBottom: '15px',
-            overflow: 'hidden'
-          }}>
-            <img src={event.image} alt={event.name} style={{ width: "150px", objectFit: "cover" }} />
-            <div style={{ padding: "10px" }}>
-              <h3>{event.name}</h3>
-              <p>{event.description}</p>
-              <small>{new Date(event.date).toLocaleDateString()}</small>
+        {/* Events */}
+        {events.map(event => (
+          <Link to={`/venue/${venueId.toLowerCase()}/event/${event.id}`} style={{width: '80vw'}}>
+            <div style={{
+              display: 'flex',
+              border: '1px solid #ccc',
+              borderRadius: '8px',
+              marginBottom: '15px',
+              overflow: 'hidden',
+            }}>
+              <img src={event.image} alt={event.name} style={{ width: "150px", objectFit: "cover" }} />
+              <div style={{ padding: "10px" }}>
+                <h3>{event.name}</h3>
+                <p>{event.description}</p>
+                <small>{new Date(event.date).toLocaleDateString()}</small>
+              </div>
             </div>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))}
 
+      </div>
+      <Footer />
     </div>
   );
 };

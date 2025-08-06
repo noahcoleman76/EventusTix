@@ -3,6 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
 import { useCart } from '../CartContext';
+import Footer from '../components/Footer';
+import BackButton from '../components/BackLink';
+import VenueTitle from '../components/VenueTitle';
 
 const CheckoutPage = () => {
     const { venueId, eventId } = useParams();
@@ -44,42 +47,41 @@ const CheckoutPage = () => {
     if (!venue || !event) return <p>Loading checkout...</p>;
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Navbar />
-            {/* Venue Header */}
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                <img src={venue.logo} alt={`${venue.name} logo`} style={{ height: "50px", marginRight: "10px" }} />
-                <h1>{venue.name}</h1>
-                <a href={venue.website} style={{ marginLeft: 'auto' }}>Back to Venue Site</a>
-            </div>
-            <h2>Checkout — {event.name}</h2>
-            <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={{ padding: "20px" }} className='main-content'>
+                <Navbar />
+                <BackButton />
+                <VenueTitle name={venue.name} />
+                <h2>Checkout — {event.name}</h2>
+                <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
 
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="First Name"
-                    value={formData.firstName}
-                    onChange={e => setFormData({ ...formData, firstName: e.target.value })}
-                    style={{ display: "block", marginBottom: "10px", padding: "8px" }} />
-                <input type="text" placeholder="Last Name"
-                    value={formData.lastName}
-                    onChange={e => setFormData({ ...formData, lastName: e.target.value })}
-                    style={{ display: "block", marginBottom: "10px", padding: "8px" }} />
-                <input type="email" placeholder="Email"
-                    value={formData.email}
-                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                    style={{ display: "block", marginBottom: "10px", padding: "8px" }} />
-                <input type="number" placeholder="Number of Tickets"
-                    value={formData.tickets}
-                    onChange={e => setFormData({ ...formData, tickets: e.target.value })}
-                    style={{ display: "block", marginBottom: "10px", padding: "8px" }} />
-                <button type="submit" style={{
-                    padding: "10px 20px",
-                    background: "#28a745",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px"
-                }}>Go to Cart</button>
-            </form>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" placeholder="First Name"
+                        value={formData.firstName}
+                        onChange={e => setFormData({ ...formData, firstName: e.target.value })}
+                        style={{ display: "block", marginBottom: "10px", padding: "8px" }} />
+                    <input type="text" placeholder="Last Name"
+                        value={formData.lastName}
+                        onChange={e => setFormData({ ...formData, lastName: e.target.value })}
+                        style={{ display: "block", marginBottom: "10px", padding: "8px" }} />
+                    <input type="email" placeholder="Email"
+                        value={formData.email}
+                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                        style={{ display: "block", marginBottom: "10px", padding: "8px" }} />
+                    <input type="number" placeholder="Number of Tickets"
+                        value={formData.tickets}
+                        onChange={e => setFormData({ ...formData, tickets: e.target.value })}
+                        style={{ display: "block", marginBottom: "10px", padding: "8px" }} />
+                    <button type="submit" style={{
+                        padding: "10px 20px",
+                        background: "#28a745",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "5px"
+                    }}>Go to Cart</button>
+                </form>
+            </div>
+            <Footer />
         </div>
     );
 };
