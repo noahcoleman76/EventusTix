@@ -1,3 +1,4 @@
+// Navbar.jsx
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
@@ -9,7 +10,9 @@ const Navbar = () => {
       <Link to={`/venue/${venueId}`} style={{ color: "#fff", marginRight: "15px" }}>
         Events
       </Link>
-      {/* Checkout link removed for now */}
+      <Link to={`/venue/${venueId}/cart`} style={{ color: "#fff" }}>
+        Cart
+      </Link>
     </nav>
   );
 };
