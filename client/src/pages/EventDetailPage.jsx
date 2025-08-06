@@ -13,10 +13,8 @@ const EventDetailPage = () => {
     const [event, setEvent] = useState(null);
 
     useEffect(() => {
-        console.log("Fetching:", venueId, eventId); // ✅
         axios.get(`http://localhost:5000/api/venues/${venueId}/events/${eventId}`)
             .then(res => {
-                console.log("API response:", res.data);
                 setVenue(res.data.venue);
                 setEvent(res.data.event);
             })
@@ -25,43 +23,87 @@ const EventDetailPage = () => {
             });
     }, [venueId, eventId]);
 
-
-
-    if (!event) {
+    if (!event || !venue) {
         return <p style={{ padding: "20px" }}>Loading event...</p>;
     }
 
     return (
-    <div style={{display: 'flex', justifyContent: 'center'}}>
-            <div style={{ padding: "20px" }} className='main-content'>
-                <Navbar />
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <Navbar />
+
+            {/* Top content outside the card */}
+            <div style={{ padding: '20px' }}>
                 <BackButton />
                 <VenueTitle name={venue.name} />
-
-                {/* Event Details */}
-                <h2>{event.name}</h2>
-                <img src={event.image} alt={event.name} style={{ width: "100%", maxWidth: "500px", marginBottom: "15px" }} />
-                <p>{event.description}</p>
-                <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
-
-                {/* Buy Tickets */}
-                <button
-                    style={{
-                        padding: "10px 20px",
-                        fontSize: "16px",
-                        background: "#28a745",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "5px",
-                        cursor: "pointer"
-                    }}
-                    onClick={() => navigate(`/venue/${venueId}/checkout/${event.id}`)}
-                >
-                    Buy Tickets
-                </button>
             </div>
+
+            {/* Card */}
+            <div style={{ flex: 1, padding: "20px", display: 'flex', justifyContent: 'center' }}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '20px',
+                    border: '1px solid #ccc',
+                    borderRadius: '10px',
+                    padding: '20px',
+                    maxHeight: '75vh',
+                    overflowY: 'auto',
+                    width: 'auto',
+                    maxWidth: '90vw'
+                }}>
+                    {/* Left - Image */}
+                    <img
+                        src={event.image}
+                        alt={event.name}
+                        style={{
+                            width: '300px',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '8px'
+                        }}
+                    />
+
+                    {/* Right - Event Details */}
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <div>
+                            <h2 style={{ marginTop: '0' }}>{event.name}</h2>
+                            <p style={{ marginTop: '10px' }}>{event.description}</p>
+                            <p style={{ marginTop: '10px' }}>
+                                <strong>Performance:</strong> {new Date(event.date).toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                }).replace(/(\d+)(,)/, (_, d, c) => {
+                                    const suffix = ['st', 'nd', 'rd'][(d % 10) - 1] && ![11, 12, 13].includes(+d % 100) ? ['st', 'nd', 'rd'][(d % 10) - 1] : 'th';
+                                    return `${d}${suffix}${c}`;
+                                })}
+                            </p>
+                        </div>
+
+                        {/* Buy Tickets Button */}
+                        <button
+                            style={{
+                                alignSelf: 'start',
+                                marginTop: '20px',
+                                padding: "10px 20px",
+                                fontSize: "16px",
+                                background: "#28a745",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: "5px",
+                                cursor: "pointer"
+                            }}
+                            onClick={() => navigate(`/venue/${venueId}/checkout/${event.id}`)}
+                        >
+                            Buy Tickets
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <Footer />
         </div>
+
     );
 };
 

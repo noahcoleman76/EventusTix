@@ -8,8 +8,9 @@ const Footer = () => (
     fontSize: '12px',
     color: '#888',
     bottom: '10px',
-    position: 'absolute',
-    width: '100vw'
+    position: 'relative',
+    width: '100vw',
+    bottom: '30px'
   }}>
     Powered by EventusTix
   </footer>

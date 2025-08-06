@@ -37,8 +37,8 @@ const CartPage = () => {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <div style={{ padding: "20px" }} className='main-content'>
+   <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', height: '100%'}}>
+      <div style={{ padding: "20px", height: '100%' }} className='main-content'>
         <Navbar />
         <BackButton />
         <VenueTitle name={`Cart for ${venueId}`} />
@@ -72,7 +72,8 @@ const CartPage = () => {
             color: "#fff",
             border: "none",
             borderRadius: "5px",
-            cursor: selectedOrders.length === 0 ? "not-allowed" : "pointer"
+            cursor: selectedOrders.length === 0 ? "not-allowed" : "pointer",
+            marginTop: '100px'
           }}
         >
           Proceed to Payment

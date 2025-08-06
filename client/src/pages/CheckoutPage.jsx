@@ -47,8 +47,8 @@ const CheckoutPage = () => {
     if (!venue || !event) return <p>Loading checkout...</p>;
 
     return (
-    <div style={{display: 'flex', justifyContent: 'center'}}>
-            <div style={{ padding: "20px" }} className='main-content'>
+     <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', height: '100%'}}>
+      <div style={{ padding: "20px", height: '100%' }} className='main-content'>
                 <Navbar />
                 <BackButton />
                 <VenueTitle name={venue.name} />

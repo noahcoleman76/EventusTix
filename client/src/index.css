@@ -23,6 +23,7 @@ body {
   background-color: #242424;
   color: rgba(255, 255, 255, 0.87);
   width: 100vw;
+  min-height: 100vh;
 }
 
 /* === Root Typography and Rendering === */
