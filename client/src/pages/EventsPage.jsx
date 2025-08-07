@@ -12,7 +12,7 @@ const EventsPage = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/venues/${venueId}/events`)
+    axios.get(`http://localhost:8080/api/venues/${venueId}/events`)
       .then(res => {
         setVenue(res.data.venue);
         setEvents(res.data.events);

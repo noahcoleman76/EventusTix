@@ -13,7 +13,7 @@ const EventDetailPage = () => {
     const [event, setEvent] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/venues/${venueId}/events/${eventId}`)
+        axios.get(`http://localhost:8080/api/venues/${venueId}/events/${eventId}`)
             .then(res => {
                 setVenue(res.data.venue);
                 setEvent(res.data.event);

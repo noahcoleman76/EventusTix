@@ -10,14 +10,14 @@ export const CartProvider = ({ children }) => {
 
   // Load cart from backend on mount
   useEffect(() => {
-    axios.get("http://localhost:5000/api/cart")
+    axios.get("http://localhost:8080/api/cart")
       .then(res => setCart(res.data))
       .catch(err => console.error(err));
   }, []);
 
   // Add or update order
   const addOrUpdateOrder = (order) => {
-    axios.post("http://localhost:5000/api/cart", order)
+    axios.post("http://localhost:8080/api/cart", order)
       .then(res => setCart(res.data))
       .catch(err => console.error(err));
   };

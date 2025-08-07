@@ -5,10 +5,12 @@ import pkg from "express-session";
 const session = pkg;
 
 const app = express();
+
 app.use(cors({
   origin: "http://localhost:5173", // React dev server
   credentials: true
 }));
+
 app.use(express.json());
 
 app.use(session({
@@ -127,5 +129,5 @@ app.post("/api/cart", (req, res) => {
 });
 
 // ====== START SERVER ======
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
